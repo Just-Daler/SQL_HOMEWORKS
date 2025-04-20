@@ -1,9 +1,11 @@
---2
+--1
+ SELECT TOP (5) * FROM Employees 
+ --2
  SELECT DISTINCT  ProductName FROM Products
  --3
  SELECT Price FROM Products_Discounted
  WHERE Price >100
---4
+ --4
  SELECT * FROM Customers
  WHERE FirstName LIKE 'A%'
  --5
@@ -76,3 +78,19 @@ WHERE Price < (SELECT AVG(PRICE)*0.10 FROM Products)
 select * 
 from Employees
 where Age<30 and DepartmentName='hr'
+--25
+SELECT* FROM Customers
+WHERE  Email LIKE '%@gmail.com'
+--26
+SELECT * 
+FROM Employees
+WHERE Salary > ALL (
+    SELECT Salary 
+    FROM Employees
+    WHERE DepartmentName = 'Marketing'
+);
+
+--27
+SELECT * FROM Orders
+WHERE OrderDate BETWEEN DATEADD(DAY,-180,GETDATE()) AND CAST(GETDATE() AS DATE)
+ORDER BY  OrderDate DESC
